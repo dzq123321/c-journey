@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bite8_11", "bite8_11\bite8_11.vcxproj", "{53862166-BF84-4C6B-BED7-C6AFDB050D1F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{53862166-BF84-4C6B-BED7-C6AFDB050D1F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{53862166-BF84-4C6B-BED7-C6AFDB050D1F}.Debug|Win32.Build.0 = Debug|Win32
+		{53862166-BF84-4C6B-BED7-C6AFDB050D1F}.Release|Win32.ActiveCfg = Release|Win32
+		{53862166-BF84-4C6B-BED7-C6AFDB050D1F}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
+EndGlobal
