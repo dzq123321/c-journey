@@ -46,3 +46,4 @@ void searchcontact(contact* pcon);
 void modifycontact(contact* pcon);
 void clearallcontact(contact* pcon);
 void sortcontact(contact* pcon);
+void Savecontact(contact* pcon);

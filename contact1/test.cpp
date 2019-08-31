@@ -41,6 +41,7 @@ int main()
 			clearallcontact(&con);
 			break;
 		case EXIT:
+			Savecontact(&con);
 			printf("сно╥мкЁЖ\n");
 			break;
 		default:

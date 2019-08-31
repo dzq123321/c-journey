@@ -6,32 +6,6 @@ void menu2()
 	printf("****3、age      4、tele******\n");
 	printf("****5、addre    0、nothing***\n");
 }
-void initicontact (contact* pcon)
-{
-	assert(pcon);
-	pcon->sz=0;
-	pcon->data=(pepleinfo*)calloc(3,sizeof(pepleinfo));
-	if(pcon->data==NULL)
-	{
-		printf("%s",strerror(errno));
-		return;
-	}
-	pcon->capacity=3;
-	
-	//pcon->sz=0;
-	//memset(pcon->data,0,sizeof(pcon->data));
-}
-int findcontact(contact* pcon,char name[])
-{
-	assert(pcon);
-	int i=0;
-	for(i=0; i<pcon->sz; i++)
-	{
-		if(0==strcmp(name,pcon->data[i].name))
-			return i;
-	}
-	return -1;
-}
 void checkcontact(contact* pcon)
 {
 	assert(pcon);
@@ -45,7 +19,50 @@ void checkcontact(contact* pcon)
 			printf("增容成功\n");
 		}
 	}
-
+}
+void loadcontact(contact* pcon)
+{
+	pepleinfo tmp={0};
+	FILE* PFile=fopen("contact.date","rb");
+	if(PFile==NULL)
+	{
+		printf("加载文件失败\n");
+		return ;
+	}
+	while(fread(&tmp,sizeof(pepleinfo),1,PFile))
+	{
+		checkcontact(pcon);
+		pcon->data[pcon->sz] = tmp;
+		pcon->sz++;
+	}
+	fclose(PFile);
+	PFile=NULL;
+}
+void initicontact (contact* pcon)
+{
+	assert(pcon);
+	pcon->sz=0;
+	pcon->data=(pepleinfo*)calloc(3,sizeof(pepleinfo));
+	if(pcon->data==NULL)
+	{
+		printf("%s",strerror(errno));
+		return;
+	}
+	pcon->capacity=3;
+	loadcontact(pcon);
+	//pcon->sz=0;
+	//memset(pcon->data,0,sizeof(pcon->data));
+}
+int findcontact(contact* pcon,char name[])
+{
+	assert(pcon);
+	int i=0;
+	for(i=0; i<pcon->sz; i++)
+	{
+		if(0==strcmp(name,pcon->data[i].name))
+			return i;
+	}
+	return -1;
 }
 void showcontact (contact* pcon)
 {
@@ -142,38 +159,38 @@ void modifycontact(contact* pcon)
 		scanf("%d",&input);
 		switch(input)
 		{
-			case 0:
-				printf("退出修改\n");
-				break;
-			case 1:
-				printf("请输入你要修改的名字\n");
-				scanf("%s",buff_str);
-				strcpy(pcon->data[pos].name,buff_str);
-				break;
-			case 2:
-				printf("请输入你要修改的性别\n");
-				scanf("%s",buff_str);
-				strcpy(pcon->data[pos].sex,buff_str);
-				break;
-			case 3:
-				printf("请输入你要修改的年龄\n");
-				scanf("%d",&buff_num);
-				//scanf("%d",&buff_num);
-				(pcon->data[pos].age)=buff_num;
-				break;
-			case 4:
-				printf("请输入你要修改的电话\n");
-				scanf("%s",buff_str);
-				strcpy(pcon->data[pos].num,buff_str);
-				break;
-			case 5:
-				printf("请输入你要修改的地址\n");
-				scanf("%s",buff_str);
-				strcpy(pcon->data[pos].addre,buff_str);
-				break;
-			default:
-				printf("请重新输入\n");
-				break;
+		case 0:
+			printf("退出修改\n");
+			break;
+		case 1:
+			printf("请输入你要修改的名字\n");
+			scanf("%s",buff_str);
+			strcpy(pcon->data[pos].name,buff_str);
+			break;
+		case 2:
+			printf("请输入你要修改的性别\n");
+			scanf("%s",buff_str);
+			strcpy(pcon->data[pos].sex,buff_str);
+			break;
+		case 3:
+			printf("请输入你要修改的年龄\n");
+			scanf("%d",&buff_num);
+			//scanf("%d",&buff_num);
+			(pcon->data[pos].age)=buff_num;
+			break;
+		case 4:
+			printf("请输入你要修改的电话\n");
+			scanf("%s",buff_str);
+			strcpy(pcon->data[pos].num,buff_str);
+			break;
+		case 5:
+			printf("请输入你要修改的地址\n");
+			scanf("%s",buff_str);
+			strcpy(pcon->data[pos].addre,buff_str);
+			break;
+		default:
+			printf("请重新输入\n");
+			break;
 		}
 	}while(input);
 	printf("修改成功\n");
@@ -201,7 +218,7 @@ void sortcontact(contact* pcon)
 	assert(pcon);
 	int i=0;
 	int j=0;
-	pepleinfo t;
+	pepleinfo t= {0};
 	for(i=0; i<pcon->sz-1; i++)
 	{
 		for(j=0; j<pcon->sz-i-1; j++)
@@ -217,4 +234,20 @@ void sortcontact(contact* pcon)
 	printf("修改成功\n");
 	showcontact (pcon);
 }
-
+void Savecontact(contact* pcon)
+{
+	int i=0;
+	FILE* Pfwrite=fopen("contact.date","wb");
+	if(Pfwrite==NULL)
+	{
+		printf("存储文件失败\n");
+		return;
+	}
+	for(i=0; i<pcon->sz; i++)
+	{
+		fwrite(pcon->data+i,sizeof(pepleinfo),1,Pfwrite);
+	}
+	fclose(Pfwrite);
+	Pfwrite=NULL;
+	printf("存储文件成功\n");
+}
